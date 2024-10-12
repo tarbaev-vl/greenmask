@@ -1,6 +1,6 @@
 # About Greenmask
 
-Her Her Her Her
+Her Her Her Her her
 
 **Greenmask** is a powerful open-source utility that is designed for logical database backup dumping,
 obfuscation, and restoration. It offers extensive functionality for backup, anonymization, and data masking.
