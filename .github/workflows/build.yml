@@ -18,6 +18,8 @@ jobs:
 
   build-binary:
     runs-on: ubuntu-22.04
+    needs: 
+      - get-tag
     strategy:
       matrix:
         platforms:
@@ -87,6 +89,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - build-binary
+      - get-tag
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Checkout repository

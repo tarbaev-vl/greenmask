@@ -14,5 +14,3 @@ env:
 jobs:
   docs:
     uses: ./.github/workflows/docs.yml
-    needs: 
-      - build
