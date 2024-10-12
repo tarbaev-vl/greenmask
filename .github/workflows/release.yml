@@ -24,12 +24,12 @@ jobs:
         run: echo "TAG=$(git tag --points-at HEAD)" >> $GITHUB_ENV
 
   tests:
-    uses: ${{ github.repository }}/.github/workflows/tests.yml@${{ env.TAG }}
+    uses: ./.github/workflows/tests.yml
     with:
       go-version: ${{ env.go-version }}
 
   build:
-    uses: ${{ github.repository }}/.github/workflows/build.yml@${{ env.TAG }}
+    uses: ./.github/workflows/build.yml
     needs: 
       - tests
     with:
@@ -37,7 +37,7 @@ jobs:
       buid-tag: ${{ env.TAG }}
 
   docs:
-    uses: ${{ github.repository }}/.github/workflows/docs.yml@${{ env.TAG }}
+    uses: ./.github/workflows/docs.yml
     if: startsWith(github.ref, 'refs/tags/v')
     needs: 
       - build

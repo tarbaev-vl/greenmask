@@ -13,7 +13,7 @@ env:
 
 jobs:
   docs:
-    uses: ${{ github.repository }}/.github/workflows/docs.yml@main
+    uses: ./.github/workflows/docs.yml
     needs: 
       - build
     with:
