@@ -3,12 +3,6 @@ name: Deploy documentation
 on:
   workflow_call:
     inputs:
-      python-version:
-        required: true
-        type: string
-      buid-tag:
-        required: false
-        type: string
 
 env:
   python-version: 'pypy3.10'

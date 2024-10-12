@@ -2,13 +2,6 @@ name: Build binary and Docker images
 
 on:
   workflow_call:
-    inputs:
-      go-version:
-        required: true
-        type: string
-      buid-tag:
-        required: false
-        type: string
 
 env:
   go-version: '1.22.6'

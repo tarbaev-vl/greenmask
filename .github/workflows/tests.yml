@@ -2,10 +2,6 @@ name: Run unit and integration tests
 
 on:
   workflow_call:
-    inputs:
-      go-version:
-        required: true
-        type: string
 
 env:
   go-version: '1.22.6'
