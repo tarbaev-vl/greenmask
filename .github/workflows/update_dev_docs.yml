@@ -16,5 +16,3 @@ jobs:
     uses: ./.github/workflows/docs.yml
     needs: 
       - build
-    with:
-      python-version: ${{ env.python-version }}

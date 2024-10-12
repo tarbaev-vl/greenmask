@@ -7,6 +7,9 @@ on:
         required: true
         type: string
 
+env:
+  go-version: '1.22.6'
+
 jobs:
   unit-tests:
     runs-on: ubuntu-22.04
@@ -17,7 +20,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: ${{ inputs.go-version }}
+          go-version: ${{ env.go-version }}
 
       - name: Run tests
         run: make tests
