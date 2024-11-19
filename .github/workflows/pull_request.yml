@@ -30,16 +30,35 @@ jobs:
     needs: 
       - tests
 
-  lint:
+  code_check:
     name: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4      
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ env.go-version }}
+
+      - uses: actions/cache/restore@v4
+        id: restore-cache
+        with:
+          key: ${{ runner.os }}-coverage-${{ github.sha }}
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v6
         with:
           version: ${{ env.golangci-lint-version }}
+      
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.go.coverage.reportPaths=coverage.out
+            -Dsonar.projectKey=tarbaev-vl_greenmask
+            -Dsonar.organization=tarbaev-vl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
