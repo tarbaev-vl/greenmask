@@ -54,7 +54,10 @@ jobs:
         uses: golangci/golangci-lint-action@v6
         with:
           version: ${{ env.golangci-lint-version }}
-      
+
+      - name: echo
+        run: echo coverage.out
+
       - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
