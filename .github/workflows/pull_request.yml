@@ -33,6 +33,8 @@ jobs:
   code_check:
     name: lint
     runs-on: ubuntu-latest
+    needs: 
+      - tests
     steps:
       - uses: actions/checkout@v4      
         with:
@@ -45,6 +47,7 @@ jobs:
       - uses: actions/cache/restore@v4
         id: restore-cache
         with:
+          path: coverage.out
           key: ${{ runner.os }}-coverage-${{ github.sha }}
 
       - name: golangci-lint
