@@ -1,7 +1,20 @@
-name: PR checks
+name: PR and main branch checks
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'LICENSE'
+      - 'getting_started.md'
+      - 'docker-compose.yml'
+      - 'playground/**'
+      - 'CNAME'
+      - 'requirements.txt'
   pull_request:
     paths-ignore:
       - 'README.md'
@@ -17,6 +30,9 @@ on:
 env:
   go-version: '1.23.2'
   golangci-lint-version: v1.60
+  sonar-project-key: tarbaev-vl_greenmask
+  sonar-org: tarbaev-vl
+  sonar-exclude-files: docker/**,.github/**,docs/**,playground/**,test/**,**/*_test.go
 
 permissions:
   contents: read
@@ -55,16 +71,14 @@ jobs:
         with:
           version: ${{ env.golangci-lint-version }}
 
-      - name: echo
-        run: cat coverage.out
-
       - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
             -Dsonar.go.coverage.reportPaths=coverage.out
-            -Dsonar.projectKey=tarbaev-vl_greenmask
-            -Dsonar.organization=tarbaev-vl
+            -Dsonar.projectKey=${{ env.sonar-project-key }}
+            -Dsonar.organization=${{ env.sonar-org }}
+            -Dsonar.exclusions=${{ env.sonar-exclude-files }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
